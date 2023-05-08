@@ -16,17 +16,16 @@ def upload_file():
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             output_file = filename[:-4] + '.clp'
             output_path = os.path.join(app.config['OUTPUT_FOLDER'], output_file)
-            subprocess.run(['rm', file_path])
-            subprocess.run(['rm', output_path])
             
             file.save(file_path)
-            # print(file_path)
-            # print(output_path)
+            print(file_path)
+            print(output_path)
             subprocess.run(['python3', 'owl2clips.py', '--format', 'turtle', '--input', file_path])
             
-            subprocess.run(['mv', file_path, output_path])
+            temp = "uploads/" + output_file
+            subprocess.run(['mv', temp, output_path])
         
-            return send_file(output_file, as_attachment=True)
+            return send_file(output_path, as_attachment=True)
     return '''
     <h1>Owl2Clips App</h1>
     <form method="post" enctype="multipart/form-data">

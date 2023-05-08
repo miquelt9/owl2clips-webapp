@@ -1,820 +1,132 @@
-@prefix : <http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis> .
+;;; ---------------------------------------------------------
+;;; uploads/ontologia_sbc.clp
+;;; Translated by owl2clips
+;;; Translated to CLIPS from ontology uploads/ontologia_sbc.owl
+;;; :Date 08/05/2023 14:28:29
+
+(defclass Ejercicio
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (multislot ejercita
+        (type INSTANCE)
+        (create-accessor read-write))
+    (slot aerobico
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot calentamiento
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot descripcion
+        (type STRING)
+        (create-accessor read-write))
+    (slot duracion
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot intensidad
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot nombre
+        (type STRING)
+        (create-accessor read-write))
+)
+
+(defclass Equilibrio
+    (is-a Ejercicio)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass Flexibilidad
+    (is-a Ejercicio)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass Fuerza
+    (is-a Ejercicio)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass Resistencia
+    (is-a Ejercicio)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass Enfermedad
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (multislot impide_hacer
+        (type INSTANCE)
+        (create-accessor read-write))
+    (slot nombre
+        (type STRING)
+        (create-accessor read-write))
+)
+
+(defclass Cardiorespiratoria
+    (is-a Enfermedad)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass Mobilidad
+    (is-a Enfermedad)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass Otros
+    (is-a Enfermedad)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass Psicologica
+    (is-a Enfermedad)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass Persona
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (multislot puede_realizar
+        (type INSTANCE)
+        (create-accessor read-write))
+    (multislot sufre
+        (type INSTANCE)
+        (create-accessor read-write))
+    (slot altura
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot borg
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot dias_disponibles
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot edad
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot nivel_fisico
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot nombre
+        (type STRING)
+        (create-accessor read-write))
+    (slot peso
+        (type FLOAT)
+        (create-accessor read-write))
+    (slot quiere_descripcion
+        (type SYMBOL)
+        (create-accessor read-write))
+    (multislot topDataProperty
+        (type INSTANCE)
+        (create-accessor read-write))
+)
 
-<http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis> rdf:type owl:Ontology ;
-                                                                               rdfs:comment "Ontologia de la pràctica de SBC (recomendació d'exercicis a gent gran)" .
-
-#################################################################
-#    Object Properties
-#################################################################
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#contiene
-:contiene rdf:type owl:ObjectProperty ;
-          rdfs:domain :Programa ;
-          rdfs:range :Ejercicio .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#ejercita
-:ejercita rdf:type owl:ObjectProperty ;
-          rdfs:domain :Ejercicio ;
-          rdfs:range :Partes_cuerpo .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#impide_hacer
-:impide_hacer rdf:type owl:ObjectProperty ;
-              rdfs:domain :Enfermedad ,
-                          :Partes_cuerpo ;
-              rdfs:range :Ejercicio .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#puede_realizar
-:puede_realizar rdf:type owl:ObjectProperty ;
-                rdfs:domain :Persona ;
-                rdfs:range :Ejercicio .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#sufre
-:sufre rdf:type owl:ObjectProperty ;
-       rdfs:domain :Persona ;
-       rdfs:range :Enfermedad .
-
-
-#################################################################
-#    Data properties
-#################################################################
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#aerobico
-:aerobico rdf:type owl:DatatypeProperty ;
-          rdfs:subPropertyOf owl:topDataProperty ;
-          rdf:type owl:FunctionalProperty ;
-          rdfs:domain :Ejercicio ;
-          rdfs:range xsd:boolean .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#altura
-:altura rdf:type owl:DatatypeProperty ;
-        rdfs:subPropertyOf owl:topDataProperty ;
-        rdf:type owl:FunctionalProperty ;
-        rdfs:domain :Persona ;
-        rdfs:range xsd:integer .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#borg
-:borg rdf:type owl:DatatypeProperty ;
-      rdfs:subPropertyOf owl:topDataProperty ;
-      rdf:type owl:FunctionalProperty ;
-      rdfs:domain :Persona ;
-      rdfs:range xsd:integer .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#calentamiento
-:calentamiento rdf:type owl:DatatypeProperty ;
-               rdfs:subPropertyOf owl:topDataProperty ;
-               rdf:type owl:FunctionalProperty ;
-               rdfs:domain :Ejercicio ;
-               rdfs:range xsd:boolean .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#descripcion
-:descripcion rdf:type owl:DatatypeProperty ;
-             rdfs:subPropertyOf owl:topDataProperty ;
-             rdf:type owl:FunctionalProperty ;
-             rdfs:domain :Ejercicio ;
-             rdfs:range xsd:string .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#dias_disponibles
-:dias_disponibles rdf:type owl:DatatypeProperty ;
-                  rdfs:subPropertyOf owl:topDataProperty ;
-                  rdf:type owl:FunctionalProperty ;
-                  rdfs:domain :Persona ;
-                  rdfs:range xsd:integer .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#duracion
-:duracion rdf:type owl:DatatypeProperty ;
-          rdfs:subPropertyOf owl:topDataProperty ;
-          rdf:type owl:FunctionalProperty ;
-          rdfs:domain :Ejercicio ;
-          rdfs:range xsd:integer .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#edad
-:edad rdf:type owl:DatatypeProperty ;
-      rdfs:subPropertyOf owl:topDataProperty ;
-      rdf:type owl:FunctionalProperty ;
-      rdfs:domain :Persona ;
-      rdfs:range xsd:integer .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#intensidad
-:intensidad rdf:type owl:DatatypeProperty ;
-            rdfs:subPropertyOf owl:topDataProperty ;
-            rdf:type owl:FunctionalProperty ;
-            rdfs:domain :Ejercicio ;
-            rdfs:range xsd:integer .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#nivel_fisico
-:nivel_fisico rdf:type owl:DatatypeProperty ;
-              rdfs:subPropertyOf owl:topDataProperty ;
-              rdf:type owl:FunctionalProperty ;
-              rdfs:domain :Persona ;
-              rdfs:range xsd:integer .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#nombre
-:nombre rdf:type owl:DatatypeProperty ;
-        rdfs:subPropertyOf owl:topDataProperty ;
-        rdf:type owl:FunctionalProperty ;
-        rdfs:domain :Ejercicio ,
-                    :Enfermedad ,
-                    :Persona ;
-        rdfs:range xsd:string .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#peso
-:peso rdf:type owl:DatatypeProperty ;
-      rdfs:subPropertyOf owl:topDataProperty ;
-      rdf:type owl:FunctionalProperty ;
-      rdfs:domain :Persona ;
-      rdfs:range xsd:double .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#quiere_descripcion
-:quiere_descripcion rdf:type owl:DatatypeProperty ;
-                    rdfs:subPropertyOf owl:topDataProperty ;
-                    rdf:type owl:FunctionalProperty ;
-                    rdfs:domain :Persona ;
-                    rdfs:range xsd:boolean .
-
-
-###  http://www.w3.org/2002/07/owl#topDataProperty
-owl:topDataProperty rdfs:domain :Persona .
-
-
-#################################################################
-#    Classes
-#################################################################
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Cardiorespiratoria
-:Cardiorespiratoria rdf:type owl:Class ;
-                    rdfs:subClassOf :Enfermedad .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Ejercicio
-:Ejercicio rdf:type owl:Class ;
-           rdfs:subClassOf owl:Thing .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Enfermedad
-:Enfermedad rdf:type owl:Class ;
-            rdfs:subClassOf owl:Thing .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Equilibrio
-:Equilibrio rdf:type owl:Class ;
-            rdfs:subClassOf :Ejercicio .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Etapa
-:Etapa rdf:type owl:Class ;
-       rdfs:subClassOf :Programa .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Flexibilidad
-:Flexibilidad rdf:type owl:Class ;
-              rdfs:subClassOf :Ejercicio .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Fuerza
-:Fuerza rdf:type owl:Class ;
-        rdfs:subClassOf :Ejercicio .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Mobilidad
-:Mobilidad rdf:type owl:Class ;
-           rdfs:subClassOf :Enfermedad .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Otros
-:Otros rdf:type owl:Class ;
-       rdfs:subClassOf :Enfermedad .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Partes_cuerpo
-:Partes_cuerpo rdf:type owl:Class .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Persona
-:Persona rdf:type owl:Class ;
-         rdfs:subClassOf owl:Thing .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Programa
-:Programa rdf:type owl:Class .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Psicologica
-:Psicologica rdf:type owl:Class ;
-             rdfs:subClassOf :Enfermedad .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Resistencia
-:Resistencia rdf:type owl:Class ;
-             rdfs:subClassOf :Ejercicio .
-
-
-#################################################################
-#    Individuals
-#################################################################
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Ansiedad
-:Ansiedad rdf:type owl:NamedIndividual ,
-                   :Psicologica .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Bailar
-:Bailar rdf:type owl:NamedIndividual ,
-                 :Resistencia ;
-        :ejercita :Brazos ,
-                  :Cadera ,
-                  :Cuello_Hombros ,
-                  :Lumbar_Espalda ,
-                  :Mano_Muñeca ,
-                  :Piernas ,
-                  :Pies_Tobillos ;
-        :aerobico "true"^^xsd:boolean ;
-        :calentamiento "false"^^xsd:boolean ;
-        :descripcion "Para esta práctica le recomendamos ir a su gimnasio o bién mirar un video." ;
-        :intensidad 4 ;
-        :nombre "bailar" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Bicicleta
-:Bicicleta rdf:type owl:NamedIndividual ,
-                    :Resistencia ;
-           :ejercita :Cadera ,
-                     :Lumbar_Espalda ,
-                     :Piernas ,
-                     :Pies_Tobillos ;
-           :aerobico "true"^^xsd:boolean ;
-           :calentamiento "false"^^xsd:boolean ;
-           :descripcion "Para esta práctica le recomendamos ir a su gimnasio o bién mirar un video." ;
-           :intensidad 5 ;
-           :nombre "ir en bicicleta" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Brazos
-:Brazos rdf:type owl:NamedIndividual ,
-                 :Mobilidad ,
-                 :Partes_cuerpo ;
-        :impide_hacer :Bailar ,
-                      :Correr ,
-                      :Ejercicio_biceps ,
-                      :Estiramiento_triceps ,
-                      :Extension_triceps ,
-                      :Levantar_brazos ,
-                      :Levantarse_de_una_silla ,
-                      :Marcha ,
-                      :Natación ,
-                      :Yoga .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Cadera
-:Cadera rdf:type owl:NamedIndividual ,
-                 :Mobilidad ,
-                 :Partes_cuerpo ;
-        :impide_hacer :Bailar ,
-                      :Bicicleta ,
-                      :Caminar ,
-                      :Correr ,
-                      :Estiramiento_tendones_muslo ,
-                      :Extension_cadera ,
-                      :Flexion_cadera ,
-                      :Flexion_tronco ,
-                      :Marcha ,
-                      :Natación ,
-                      :Subir_escaleras ,
-                      :Yoga .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Caminar
-:Caminar rdf:type owl:NamedIndividual ,
-                  :Resistencia ;
-         :ejercita :Cadera ,
-                   :Lumbar_Espalda ,
-                   :Piernas ,
-                   :Pies_Tobillos ;
-         :aerobico "true"^^xsd:boolean ;
-         :calentamiento "false"^^xsd:boolean ;
-         :descripcion "Camine pero tenga en cuanta que debe elevar ligeramente la barvilla i mantener los hombros hacia atras." ;
-         :intensidad 1 ;
-         :nombre "caminar" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Cardiopatía
-:Cardiopatía rdf:type owl:NamedIndividual ,
-                      :Cardiorespiratoria .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Correr
-:Correr rdf:type owl:NamedIndividual ,
-                 :Resistencia ;
-        :ejercita :Brazos ,
-                  :Cadera ,
-                  :Lumbar_Espalda ,
-                  :Piernas ,
-                  :Pies_Tobillos ;
-        :aerobico "true"^^xsd:boolean ;
-        :calentamiento "false"^^xsd:boolean ;
-        :descripcion "Ande rápidamente y con tanto impulso que, entre un paso y el siguiente, los pies o las patas quedan por un momento en el aire. Recuerde mantener la espalda recta." ;
-        :intensidad 5 ;
-        :nombre "correr" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Cuello_Hombros
-:Cuello_Hombros rdf:type owl:NamedIndividual ,
-                         :Mobilidad ,
-                         :Partes_cuerpo ;
-                :impide_hacer :Bailar ,
-                              :Flexion_hombros ,
-                              :Natación ,
-                              :Yoga .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Cáncer
-:Cáncer rdf:type owl:NamedIndividual ,
-                 :Otros .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Depresión
-:Depresión rdf:type owl:NamedIndividual ,
-                    :Psicologica .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Diabetes
-:Diabetes rdf:type owl:NamedIndividual ,
-                   :Otros .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Ejercicio_biceps
-:Ejercicio_biceps rdf:type owl:NamedIndividual ,
-                           :Fuerza ;
-                  :ejercita :Brazos ;
-                  :aerobico "false"^^xsd:boolean ;
-                  :calentamiento "false"^^xsd:boolean ;
-                  :descripcion """Sujete las mancuernas con ambas manos a los costados (o alternativamente por ejemplo un paquete de arroz), con los brazos completamente extendidos y las palmas de las manos hacia adentro. Flexiona los brazos trayendo las mancuernas hacia el pecho.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                  :intensidad 3 ;
-                  :nombre "ejercicio de biceps" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Elevacion_piernas
-:Elevacion_piernas rdf:type owl:NamedIndividual ,
-                            :Equilibrio ,
-                            :Fuerza ;
-                   :ejercita :Piernas ;
-                   :aerobico "false"^^xsd:boolean ;
-                   :calentamiento "false"^^xsd:boolean ;
-                   :descripcion """Acuéstese en el suelo con la espalda apoyada en el suelo y las piernas extendidas, coloque sus manos debajo de tu trasero o en tu lado para sostenerte y evitar que te deslices hacia atrás.
-Eleve ambas piernas hacia arriba, manteniendo tus rodillas ligeramente dobladas y tus pantorrillas paralelas al suelo.
-Mantén la posición durante unos segundos, luego baje tus piernas lentamente hacia el suelo.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                   :intensidad 3 ;
-                   :nombre "elevación de piernas" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Estiramiento_cuadriceps
-:Estiramiento_cuadriceps rdf:type owl:NamedIndividual ,
-                                  :Flexibilidad ;
-                         :ejercita :Piernas ;
-                         :aerobico "false"^^xsd:boolean ;
-                         :calentamiento "true"^^xsd:boolean ;
-                         :descripcion """Párase cerca de una pared o alguna máquina de entrenamiento robusta para sostenerse.
-Tome su tobillo y suavemente traiga el talón hacia arriba y atrás hasta sentir un estiramiento en la parte delantera del muslo.
-Ajuste los músculos del estómago para evitar que se comben hacia afuera, y deja las rodillas juntas.
-Mantén esta posición durante aproximadamente 15 segundos i cambie de pierna.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                         :intensidad 1 ;
-                         :nombre "estiramiento de cuádriceps" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Estiramiento_isquitibiales
-:Estiramiento_isquitibiales rdf:type owl:NamedIndividual ,
-                                     :Flexibilidad ;
-                            :ejercita :Piernas ;
-                            :aerobico "false"^^xsd:boolean ;
-                            :calentamiento "true"^^xsd:boolean ;
-                            :descripcion """Sentados en el suelo con las piernas juntas y las rodillas flexionadas, coger la punta de los dedos. Estirar las piernas todo lo que se pueda, sin soltar las puntas de los dedos de los pies. Mantener la extensión de las rodillas y la cadera hacia delante por unos segundos, y deshacer la postura lentamente. 
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                            :intensidad 1 ;
-                            :nombre "estiramiento de isquiotibiales" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Estiramiento_muñeca
-:Estiramiento_muñeca rdf:type owl:NamedIndividual ,
-                              :Flexibilidad ;
-                     :ejercita :Mano_Muñeca ;
-                     :aerobico "false"^^xsd:boolean ;
-                     :calentamiento "true"^^xsd:boolean ;
-                     :descripcion """Doble la muñeca y apunte con la mano hacia el piso. Con la otra mano, doble suavemente la muñeca aún más hasta que sienta un estiramiento entre leve y moderado en el antebrazo. Mantenga esta posición unos 15 segundos, por lo menos. 
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                     :intensidad 1 ;
-                     :nombre "estiramiento de muñeca" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Estiramiento_pantorrillas
-:Estiramiento_pantorrillas rdf:type owl:NamedIndividual ,
-                                    :Flexibilidad ;
-                           :ejercita :Piernas ;
-                           :aerobico "false"^^xsd:boolean ;
-                           :calentamiento "true"^^xsd:boolean ;
-                           :descripcion """Mientras se sostiene a una silla, mantenga una pierna atrás con la rodilla derecha y el talón pegado al suelo. Lentamente dobla los codos y la rodilla de adelante y mueve la cadera hacia adelante hasta que sientas que la pantorrilla se estira. Mantén esta posición unos 20 segundos.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                           :intensidad 1 ;
-                           :nombre "estiramiento de Pantorrillas" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Estiramiento_tendones_muslo
-:Estiramiento_tendones_muslo rdf:type owl:NamedIndividual ,
-                                      :Flexibilidad ;
-                             :ejercita :Cadera ,
-                                       :Lumbar_Espalda ;
-                             :aerobico "false"^^xsd:boolean ;
-                             :calentamiento "true"^^xsd:boolean ;
-                             :descripcion """Extienda una pierna hacia el frente con el pie flexionado y doble la otra inclinándose ligeramente hacia atrás. La pelvis debe estar inclinada hacia delante. Mantenga la parte superior del cuerpo derecha mientras se hace el estiramiento unos 15 segundos y luego se cambia de lado.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                             :intensidad 2 ;
-                             :nombre "estiramiento de los Tendones del muslo" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Estiramiento_tobillos
-:Estiramiento_tobillos rdf:type owl:NamedIndividual ,
-                                :Flexibilidad ;
-                       :ejercita :Pies_Tobillos ;
-                       :aerobico "false"^^xsd:boolean ;
-                       :calentamiento "true"^^xsd:boolean ;
-                       :descripcion """Rote el tobillo en el sentido de las agujas del reloj y después, en sentido contrario hasta que te permita el grado de movilidad. Canvie de pie.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                       :intensidad 1 ;
-                       :nombre "estiramiento de tobillos" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Estiramiento_triceps
-:Estiramiento_triceps rdf:type owl:NamedIndividual ,
-                               :Flexibilidad ;
-                      :ejercita :Brazos ;
-                      :aerobico "false"^^xsd:boolean ;
-                      :calentamiento "true"^^xsd:boolean ;
-                      :descripcion """Eleve el brazo sobre la cabeza y doble el codo completamente de tal manera que la mano quede por detrás del cuello, utilizando el otro brazo para estabilizar el codo. Mantenga esta posición unos 15 segundos y luego cambie de lado.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                      :intensidad 1 ;
-                      :nombre "estiramiento de triceps" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Estrés
-:Estrés rdf:type owl:NamedIndividual ,
-                 :Psicologica .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Extension_cadera
-:Extension_cadera rdf:type owl:NamedIndividual ,
-                           :Equilibrio ,
-                           :Fuerza ;
-                  :ejercita :Cadera ;
-                  :aerobico "false"^^xsd:boolean ;
-                  :calentamiento "false"^^xsd:boolean ;
-                  :descripcion """Acuéstese boca abajo en el suelo con las piernas extendidas detrás de usted y los brazos a lo largo del cuerpo.
-Con la espalda recta en todo momento, lleva la pierna que tiene el peso hacia atrás lentamente y sin flexionar la rodilla. Eleva y desciende la pierna de forma controlada varias veces de tal manera que sea la cadera la que dirija el movimiento.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                  :intensidad 2 ;
-                  :nombre "extensión de cadera" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Extension_rodilla
-:Extension_rodilla rdf:type owl:NamedIndividual ,
-                            :Fuerza ;
-                   :ejercita :Piernas ;
-                   :aerobico "false"^^xsd:boolean ;
-                   :calentamiento "false"^^xsd:boolean ;
-                   :descripcion """Sientese en una silla con piernas a lo ancho de la cadera i espalda recta.
-Estire la rodilla derecha lentament por unos segunes un total de 5 repeticiones.
-Repita con la rodilla izquierda.
-Repita el ejercicio durante un conjunto establecido de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                   :intensidad 2 ;
-                   :nombre "extensión de rodilla" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Extension_triceps
-:Extension_triceps rdf:type owl:NamedIndividual ,
-                            :Fuerza ;
-                   :ejercita :Brazos ;
-                   :aerobico "false"^^xsd:boolean ;
-                   :calentamiento "false"^^xsd:boolean ;
-                   :descripcion """Acuéstese con una pesa en la mano. Apunta la parte superior del brazo hacia arriba, con el codo flexionado en un ángulo de 90 grados. Enderezca el codo lentamente, moviendo la pesa hacia arriba. Luego, baje lentamente la pesa a la posición inicial.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                   :intensidad 2 ;
-                   :nombre "extensión de triceps" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Flexion_cadera
-:Flexion_cadera rdf:type owl:NamedIndividual ,
-                         :Flexibilidad ,
-                         :Fuerza ;
-                :ejercita :Cadera ;
-                :aerobico "false"^^xsd:boolean ;
-                :calentamiento "false"^^xsd:boolean ;
-                :descripcion """Siéntese en el suelo con las piernas extendidas delante de ti y los brazos a lo largo del cuerpo.
-Eleve su pie derecho del suelo y coloque la punta del pie en el muslo izquierdo.
-Flexione su cadera derecha y coloca tu mano derecha en el suelo a tu lado derecho. Eleva tu brazo izquierdo hacia el techo y mire hacia arriba.
-Mantén la posición durante unos segundos, luego regresa a la posición inicial y repite con el otro lado.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                :intensidad 1 ;
-                :nombre "flexión de cadera" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Flexion_hombros
-:Flexion_hombros rdf:type owl:NamedIndividual ,
-                          :Fuerza ;
-                 :ejercita :Cuello_Hombros ;
-                 :aerobico "false"^^xsd:boolean ;
-                 :calentamiento "false"^^xsd:boolean ;
-                 :descripcion """Párese de frente a una pared. Lentamente camine hacia arriba con los dedos de la mano por la pared hasta que sienta un estiramiento. Sostenga el estiramiento unos 15 segundos. Regrese a la posición original de pie.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                 :intensidad 2 ;
-                 :nombre "flexión de hombros" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Flexion_plantar
-:Flexion_plantar rdf:type owl:NamedIndividual ,
-                          :Equilibrio ,
-                          :Fuerza ;
-                 :ejercita :Piernas ,
-                           :Pies_Tobillos ;
-                 :aerobico "false"^^xsd:boolean ;
-                 :calentamiento "false"^^xsd:boolean ;
-                 :descripcion """Siéntese en la cama o en el piso con la pierna derecha extendida. Doble ligeramente la rodilla izquierda.
-Flexione el pie derecho, empujando el talón hacia adelante y trayendo los dedos del pie hacia usted. Sostenga esta posición durante 5 segundos.
-Mueva el pie en la dirección contraria, apuntando los dedos del pie hacia adelante. Sostenga esta posición durante 5 segundos.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                 :intensidad 2 ;
-                 :nombre "flexión plantar" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Flexion_rodilla
-:Flexion_rodilla rdf:type owl:NamedIndividual ,
-                          :Equilibrio ;
-                 :ejercita :Piernas ;
-                 :aerobico "false"^^xsd:boolean ;
-                 :calentamiento "false"^^xsd:boolean ;
-                 :descripcion """Sientese en una silla con piernas a lo ancho de la cadera i espalda recta.
-Estire la rodilla derecha lentament por unos segunes un total de 5 repeticiones.
-Repita con la rodilla izquierda.
-Repita el ejercicio durante un conjunto establecido de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                 :intensidad 2 ;
-                 :nombre "flexion de rodilla" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Flexion_tronco
-:Flexion_tronco rdf:type owl:NamedIndividual ,
-                         :Flexibilidad ;
-                :ejercita :Cadera ,
-                          :Lumbar_Espalda ;
-                :aerobico "false"^^xsd:boolean ;
-                :calentamiento "false"^^xsd:boolean ;
-                :descripcion """Tumbado boca arriba y con las manos detrás de las orejas, flexione el tronco ligeramente dejando la parte baja de la espalda siempre en contacto con el suelo. Si sube demasiado sentirá como trabaja la parte anterior del muslo más cercana a la cadera. Nunca lleve la barbilla al pecho.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                :intensidad 1 ;
-                :nombre "flexión de tronco" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Hipertensión
-:Hipertensión rdf:type owl:NamedIndividual ,
-                       :Cardiorespiratoria .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Insomnio
-:Insomnio rdf:type owl:NamedIndividual ,
-                   :Psicologica .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Jubilado
-:Jubilado rdf:type owl:NamedIndividual ,
-                   :Persona ;
-          :puede_realizar :Bailar ,
-                          :Bicicleta ,
-                          :Caminar ,
-                          :Correr ,
-                          :Ejercicio_biceps ,
-                          :Elevacion_piernas ,
-                          :Estiramiento_cuadriceps ,
-                          :Estiramiento_isquitibiales ,
-                          :Estiramiento_muñeca ,
-                          :Estiramiento_pantorrillas ,
-                          :Estiramiento_tendones_muslo ,
-                          :Estiramiento_tobillos ,
-                          :Estiramiento_triceps ,
-                          :Extension_cadera ,
-                          :Extension_rodilla ,
-                          :Extension_triceps ,
-                          :Flexion_cadera ,
-                          :Flexion_hombros ,
-                          :Flexion_plantar ,
-                          :Flexion_rodilla ,
-                          :Flexion_tronco ,
-                          :Levantar_brazos ,
-                          :Levantarse_de_una_silla ,
-                          :Marcha ,
-                          :Natación ,
-                          :Subir_escaleras ,
-                          :Yoga .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Levantar_brazos
-:Levantar_brazos rdf:type owl:NamedIndividual ,
-                          :Fuerza ;
-                 :ejercita :Brazos ;
-                 :aerobico "false"^^xsd:boolean ;
-                 :calentamiento "false"^^xsd:boolean ;
-                 :descripcion """Sostenga una mancuerna en cada mano y coloca las palmas en dirección al cuerpo. Mantenga los codos apenas doblados, levanta los brazos hacia los costados hasta que las mancuernas estén a la altura del pecho y, luego, bájelos nuevamente hasta la posición de inicio.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                 :intensidad 2 ;
-                 :nombre "levantamiento de brazos" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Levantarse_de_una_silla
-:Levantarse_de_una_silla rdf:type owl:NamedIndividual ,
-                                  :Fuerza ;
-                         :ejercita :Brazos ,
-                                   :Piernas ;
-                         :aerobico "false"^^xsd:boolean ;
-                         :calentamiento "false"^^xsd:boolean ;
-                         :descripcion """Siéntese en el borde de una silla con los pies apoyados en el suelo y los brazos a lo largo del cuerpo.
-Eleve su peso sobre tus talones y coloca tus manos en los brazos de la silla.
-Levante su cuerpo y use sus manos para empujarte hacia arriba y levantarte de la silla. Una vez que estés de pie, asegúrese de mantener su espalda recta y sus hombros hacia atrás.
-Cuando esté listo para sentarte de nuevo, sienta tu peso sobre tus talones y use sus manos para apoyarte mientras se sienta lentamente en la silla.
-Repita el ejercicio durante un conjunto 5 de repeticiones, luego descansa y repita hasta acabar las repeticiones.""" ;
-                         :intensidad 3 ;
-                         :nombre "Levantarse de una silla" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Lumbar_Espalda
-:Lumbar_Espalda rdf:type owl:NamedIndividual ,
-                         :Mobilidad ,
-                         :Partes_cuerpo ;
-                :impide_hacer :Bailar ,
-                              :Bicicleta ,
-                              :Caminar ,
-                              :Correr ,
-                              :Estiramiento_tendones_muslo ,
-                              :Flexion_tronco ,
-                              :Marcha ,
-                              :Natación ,
-                              :Subir_escaleras ,
-                              :Yoga .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Mano_Muñeca
-:Mano_Muñeca rdf:type owl:NamedIndividual ,
-                      :Mobilidad ,
-                      :Partes_cuerpo ;
-             :impide_hacer :Bailar ,
-                           :Estiramiento_muñeca ,
-                           :Natación .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Marcha
-:Marcha rdf:type owl:NamedIndividual ,
-                 :Resistencia ;
-        :ejercita :Brazos ,
-                  :Cadera ,
-                  :Lumbar_Espalda ,
-                  :Piernas ,
-                  :Pies_Tobillos ;
-        :aerobico "true"^^xsd:boolean ;
-        :calentamiento "false"^^xsd:boolean ;
-        :descripcion "Ande energicamente, recuerda minimizar la rotación de cadera, mantener los hombros hacia atrás i tener la espalda recta." ;
-        :intensidad 3 ;
-        :nombre "marcha" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Natación
-:Natación rdf:type owl:NamedIndividual ,
-                   :Resistencia ;
-          :ejercita :Brazos ,
-                    :Cadera ,
-                    :Cuello_Hombros ,
-                    :Lumbar_Espalda ,
-                    :Mano_Muñeca ,
-                    :Piernas ,
-                    :Pies_Tobillos ;
-          :aerobico "true"^^xsd:boolean ;
-          :calentamiento "false"^^xsd:boolean ;
-          :descripcion "Nade en un cuerpo de agua como bién puede ser el mar o una piscina." ;
-          :intensidad 4 ;
-          :nombre "nadar" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Obesidad
-:Obesidad rdf:type owl:NamedIndividual ,
-                   :Otros .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Piernas
-:Piernas rdf:type owl:NamedIndividual ,
-                  :Mobilidad ,
-                  :Partes_cuerpo ;
-         :impide_hacer :Bailar ,
-                       :Bicicleta ,
-                       :Caminar ,
-                       :Correr ,
-                       :Elevacion_piernas ,
-                       :Estiramiento_cuadriceps ,
-                       :Estiramiento_isquitibiales ,
-                       :Estiramiento_pantorrillas ,
-                       :Extension_rodilla ,
-                       :Flexion_plantar ,
-                       :Flexion_rodilla ,
-                       :Levantarse_de_una_silla ,
-                       :Marcha ,
-                       :Natación ,
-                       :Subir_escaleras ,
-                       :Yoga .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Pies_Tobillos
-:Pies_Tobillos rdf:type owl:NamedIndividual ,
-                        :Mobilidad ,
-                        :Partes_cuerpo ;
-               :impide_hacer :Bailar ,
-                             :Bicicleta ,
-                             :Caminar ,
-                             :Correr ,
-                             :Estiramiento_tobillos ,
-                             :Flexion_plantar ,
-                             :Marcha ,
-                             :Natación ,
-                             :Subir_escaleras .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Subir_escaleras
-:Subir_escaleras rdf:type owl:NamedIndividual ,
-                          :Resistencia ;
-                 :ejercita :Cadera ,
-                           :Lumbar_Espalda ,
-                           :Piernas ,
-                           :Pies_Tobillos ;
-                 :aerobico "true"^^xsd:boolean ;
-                 :calentamiento "false"^^xsd:boolean ;
-                 :descripcion "Escoja un tramo de escaleras de su casa o de un parque i subalas manteniendo en todo momento la espalda recta. Cuando haya terminado con el tramo, bajelas y repita." ;
-                 :intensidad 4 ;
-                 :nombre "subir escaleras" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#Yoga
-:Yoga rdf:type owl:NamedIndividual ,
-               :Equilibrio ;
-      :ejercita :Brazos ,
-                :Cadera ,
-                :Cuello_Hombros ,
-                :Lumbar_Espalda ,
-                :Piernas ;
-      :aerobico "true"^^xsd:boolean ;
-      :calentamiento "false"^^xsd:boolean ;
-      :descripcion """Para esta práctica le recomendamos ir a su gimnasio o bién mirar un video.
-(Video 1 (De pie) - https://www.youtube.com/watch?v=20Xwv2zSIhc)
-(Video 2 (En silla) - https://www.youtube.com/watch?v=vBXWOUXb_5g)""" ;
-      :intensidad 2 ;
-      :nombre "yoga" .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#etapa
-:etapa rdf:type owl:NamedIndividual ,
-                :Etapa .
-
-
-###  http://www.semanticweb.org/mique/ontologies/2022/10/ontologia_practica_avis#programa
-:programa rdf:type owl:NamedIndividual ,
-                   :Programa .
-
-
-#################################################################
-#    General axioms
-#################################################################
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :Equilibrio
-                :Flexibilidad
-                :Fuerza
-                :Resistencia
-              )
-] .
-
-
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
